@@ -165,6 +165,13 @@ without necessarily having a billing card.`
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     // n/a
 
+    posts : { collection : 'post',via : 'author'},
+    profile : {collection : 'profile',via : 'author'},
+    teams : { collection : 'team', via : 'teammates'},
+    comments : { collection : 'comment', via: 'author'},
+    likes : {collection : 'like', via: 'author'},
+    chatMessages : {collection : 'chatMessage', via:'author'},
+    rooms: {collection:'room', via: 'chatters'}
   },
 
 
