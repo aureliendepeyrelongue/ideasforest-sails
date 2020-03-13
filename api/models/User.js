@@ -171,7 +171,7 @@ without necessarily having a billing card.`
     comments : { collection : 'comment', via: 'author'},
     likes : {collection : 'like', via: 'author'},
     chatMessages : {collection : 'chatMessage', via:'author'},
-    rooms: {collection:'room', via: 'chatters'}
+    rooms: {collection:'room', via: 'users'}
   },
 
 

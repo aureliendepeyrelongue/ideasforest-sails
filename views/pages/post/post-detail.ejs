@@ -1,0 +1,66 @@
+<main role="main" class="container main">
+    <div class="row">
+        <div class="col-md-12">
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="<%=post.author.profile.avatar %>" alt="">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="/profile/<%= post.author.id %>"><%= post.author.fullName %></a>
+                        <small class="text-muted">21 January 2020</small>
+                    </div>
+                    <h2 class="article-title"><%= post.title %></h2>
+                    <p class="article-content"><%= post.content %></p>
+                    <div>
+                        <a class="likes-button" href="/api/post/24/like"
+                            title="Connectez ou inscrivez-vous pour liker.">
+                            <span class="likes-number-container"><%= post.likes.length %></span>
+                            <span class="fa fa-heart"></span></a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <h2>Commentaires (<%= post.comments.length %>)</h2>
+        <% for(var i=0 ; i < post.comments.length; i++) { %>
+        <div class="col-md-12">
+            <div class=" content-section">
+                <div><img class="rounded-circle article-img" src="<%= post.comments[i].author.profile.avatar %>" alt="">
+                    <a class="mr-2" href="#"><%= post.comments[i].author.fullName %></a>
+                    <small class="text-muted">14 February 2020</small></div>
+                <p><%= post.comments[i].content %></p>
+            </div>
+        </div>
+        <% } %>
+
+
+        <div class="col-md-12">
+            <div class="content-section">
+                <form method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken"
+                        value="9ZPTzVpfvYnX2vj2FsvumNxAZHUgZ1I5C49d8c3CmBWn0a5rmhqGXktRLJZlKdfj">
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">
+                            Laisser un commentaire
+                        </legend>
+
+
+                        <div id="div_id_content" class="form-group"> <label for="id_content" class=" requiredField">
+                                Content<span class="asteriskField">*</span> </label>
+                            <div class=""> <textarea name="content" cols="40" rows="10" class="textarea form-control"
+                                    required="" id="id_content"></textarea> </div>
+                        </div>
+
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">
+                            Envoyer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+</main>

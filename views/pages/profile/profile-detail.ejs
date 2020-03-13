@@ -1,0 +1,27 @@
+<main role="main" class="container main">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="content-section">
+                <div class="media">
+                    <img class="rounded-circle account-img" src="<%= user.profile.avatar %>">
+                    <div class="media-body">
+                        <h2 class="account-heading"><%= user.fullName %></h2>
+                        <p class="text-secondary"><%= user.profile.role %></p>
+                        <p class="text-secondary"><%= user.profile.about %></p>
+                        <div class="alert alert-primary" role="alert">
+                            <%= user.fullName %> a proposé <%= user.posts.length %> idées de startup !
+                        </div>
+                        <a href="/user/posts/1" class="btn btn-outline-info">
+                            Découvrir ses idées !
+                        </a>
+                        <a href="/chatmessage/new" class="btn btn-outline-info">
+                            Envoyer un message
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>

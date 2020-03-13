@@ -13,6 +13,16 @@ module.exports.routes = {
   //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
   //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
+  'GET /ideas': 'PostController.getPostList',
+  'GET /ideas/:id' : 'PostController.getPostDetail',
+
+  'GET /profile/:id' : 'ProfileController.getProfileDetail',
+
+  'GET /messages' : 'ChatMessageController.getView',
+  'GET /api/chat-messages' : 'ChatMessageController.getChatMessages',
+  'GET /api/chat-messages/connect' : 'ChatMessageController.getChatConnect',
+  'POST /api/chat-messages' : 'ChatMessageController.postChatMessage',
+
   'GET /':                   { action: 'view-homepage-or-redirect' },
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
 
@@ -32,6 +42,8 @@ module.exports.routes = {
   'GET /account':            { action: 'account/view-account-overview' },
   'GET /account/password':   { action: 'account/view-edit-password' },
   'GET /account/profile':    { action: 'account/view-edit-profile' },
+
+
 
 
   //  ╔╦╗╦╔═╗╔═╗  ╦═╗╔═╗╔╦╗╦╦═╗╔═╗╔═╗╔╦╗╔═╗   ┬   ╔╦╗╔═╗╦ ╦╔╗╔╦  ╔═╗╔═╗╔╦╗╔═╗

@@ -1,0 +1,38 @@
+<div class="container main" role="main">
+    <div class="messaging" id="chat-app">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Vos messages</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar" placeholder="Search">
+                            <span class="input-group-addon">
+                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                            </span> </div>
+                    </div>
+                </div>
+                <div class="inbox_chat">
+                    <last-message v-for="item in rooms" v-bind:room="item" v-on:click.native="setActiveRoom(item)"
+                        :class="getActiveClass(item.id)">
+                    </last-message>
+                </div>
+            </div>
+            <div class="mesgs">
+                <div class="msg_history">
+                    <message v-for="message in activeRoom.messages" :message="message"
+                        :inuser="activeRoom.incomingUser"></message>
+                </div>
+                <writer v-on:sendmessage="sendMessage"></writer>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<% block('localScripts', `
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="/js/pages/chat/chat.js"></script>
+`) %>

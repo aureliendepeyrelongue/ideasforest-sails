@@ -8,7 +8,7 @@
 module.exports = {
 
   attributes: {
-    chatters : {collection : 'user', via : 'rooms'},
+    users : {collection : 'user', via : 'rooms'},
     messages : {collection: 'chatMessage', via : 'room'}
   },
 

@@ -8,8 +8,8 @@
 module.exports = {
 
   attributes: {
-
     about: { type: 'string'},
+    role: { type: 'string'},
     avatar: { type: 'string'},
     author: { model: 'user', unique : true}
   },

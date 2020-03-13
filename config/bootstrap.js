@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * Seed Function
  * (sails.config.bootstrap)
@@ -54,14 +55,7 @@ module.exports.bootstrap = async function() {
 
   // Since the hard-coded data version has been incremented, and we're running in
   // a "throwaway data" environment, delete all records from all models.
-  for (let identity in sails.models) {
-    await sails.models[identity].destroy({});
-  }//∞
 
-  // By convention, this is a good place to set up fake data during development.
-  await User.createEach([
-    { emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123') },
-  ]);
 
   // Save new bootstrap version
   await sails.helpers.fs.writeJson.with({
@@ -75,5 +69,211 @@ module.exports.bootstrap = async function() {
   .tolerate((err)=>{
     sails.log.warn('For some reason, could not write bootstrap version .json file.  This could be a result of a problem with your configured paths, or, if you are in production, a limitation of your hosting provider related to `pwd`.  As a workaround, try updating app.js to explicitly pass in `appPath: __dirname` instead of relying on `chdir`.  Current sails.config.appPath: `'+sails.config.appPath+'`.  Full error details: '+err.stack+'\n\n(Proceeding anyway this time...)');
   });
+
+  // bootstrap app
+  try {
+
+    console.log('C\'est parti pour le seeding');
+    var globalPassword = await sails.helpers.passwords.hashPassword('testing123');
+    await User.create( {
+      fullName: 'John Wayne',
+      emailAddress: 'johnnie86@gmail.com',
+      password: globalPassword,
+
+    });
+    await User.create({
+      fullName: 'Peter Quinn',
+      emailAddress: 'peter.quinn@live.com',
+      password : globalPassword
+    });
+
+    await User.create( {
+      fullName: 'Jane Eyre',
+      emailAddress: 'jane@hotmail.com',
+      password: globalPassword
+    });
+
+    await User.create( {
+      fullName: 'Muramasa',
+      emailAddress: 'muramasa@gmail.com',
+      password: globalPassword,
+
+    });
+    await User.create( {
+      fullName: 'LeiLa',
+      emailAddress: 'leila.quinn@live.com',
+      password : globalPassword
+    });
+    await User.create( {
+      fullName: 'Foncy',
+      emailAddress: 'foncy@hotmail.com',
+      password: globalPassword
+    });
+
+
+
+    var users = await User.find();
+
+
+    var profile1 = await Profile.create({
+      role : 'Développeur',
+      about : 'A propos 1',
+      author : users[0].id,
+      avatar : 'https://randomuser.me/api/portraits/men/81.jpg'
+
+    }).fetch();
+
+    var profile2 = await Profile.create({
+      role : 'Développeur',
+      about : 'A propos 2',
+      author : users[1].id,
+      avatar : 'https://randomuser.me/api/portraits/men/34.jpg'
+
+    }).fetch();
+
+    var profile3 = await Profile.create({
+      role : 'Développeur',
+      about : 'A propos 3',
+      author : users[2].id,
+      avatar : 'https://randomuser.me/api/portraits/women/20.jpg'
+
+    }).fetch();
+
+    var profile4 = await Profile.create({
+      role : 'Développeur',
+      about : 'A propos 4',
+      author : users[3].id,
+      avatar : 'https://randomuser.me/api/portraits/men/61.jpg'
+
+    }).fetch();
+
+    var profile5 = await Profile.create({
+      role : 'Développeur',
+      about : 'A propos 5',
+      author : users[4].id,
+      avatar : 'https://randomuser.me/api/portraits/women/31.jpg'
+
+    }).fetch();
+
+    var profile6 = await Profile.create({
+      role : 'Développeur',
+      about : 'A propos 5',
+      author : users[5].id,
+      avatar : 'https://randomuser.me/api/portraits/men/20.jpg'
+
+    }).fetch();
+
+    var post1 = await Post.create({
+      author:users[0].id,
+      title : 'Titre 1',
+      content: 'Contenu 1'
+    }).fetch();
+
+    var post2 = await Post.create({
+      author:users[1].id,
+      title : 'Titre 2',
+      content: 'Contenu 2'
+    }).fetch();
+
+    var post3 = await Post.create({
+      author:users[2].id,
+      title : 'Titre 3',
+      content: 'Contenu 3'
+    }).fetch();
+
+    var post4 = await Post.create({
+      author:users[3].id,
+      title : 'Titre 4',
+      content: 'Contenu 4'
+    }).fetch();
+
+    var post5 = await Post.create({
+      author:users[4].id,
+      title : 'Titre 5',
+      content: 'Contenu 5'
+    }).fetch();
+
+    var post6 = await Post.create({
+      author:users[5].id,
+      title : 'Titre 6',
+      content: 'Contenu 6'
+    }).fetch();
+
+
+    var like1 = await Like.create({
+      author : users[0].id,
+      post : post1.id
+    }).fetch();
+
+    var like2 = await Like.create({
+      author : users[1].id,
+      post : post1.id
+    }).fetch();
+
+    var like3 = await Like.create({
+      author : users[2].id,
+      post : post1.id
+    }).fetch();
+
+    var comment1 = await Comment.create({
+      author : users[1].id,
+      post : post1.id,
+      content: 'Super idée !!'
+
+    }).fetch();
+
+    var comment2 = await Comment.create({
+      author : users[2].id,
+      post : post1.id,
+      content: 'Pas très crédible'
+
+    }).fetch();
+
+    var comment2 = await Comment.create({
+      author : users[3].id,
+      post : post1.id,
+      content: 'Parfait ça te dit qu\'on fasse équipe ?'
+
+    }).fetch();
+
+    var room1 = await Room.create({
+    }).fetch();
+
+    var room2 = await Room.create({
+    }).fetch();
+
+    var room3 = await Room.create({
+    }).fetch();
+
+    await Room.addToCollection(room1.id, 'users', [users[0].id, users[1].id]);
+    await Room.addToCollection(room2.id, 'users', [users[0].id, users[2].id]);
+    await Room.addToCollection(room3.id, 'users', [users[0].id, users[3].id]);
+    var chatMessage1 = await ChatMessage.create({
+      author: users[1].id,
+      content : 'salut !!',
+      room : room1.id
+    }).fetch();
+
+    var chatMessage2 = await ChatMessage.create({
+      author: users[2].id,
+      content : 'salut Johnie!!',
+      room : room2.id
+    }).fetch();
+
+    var chatMessage3 = await ChatMessage.create({
+      author: users[0].id,
+      content : 'Coucou !',
+      room: room1.id
+    }).fetch();
+    var chatMessage4 = await ChatMessage.create({
+      author: users[3].id,
+      content : 'Coucou !',
+      room: room3.id
+    }).fetch();
+
+  }catch(err){
+    console.error(err);
+  }
+
 
 };
