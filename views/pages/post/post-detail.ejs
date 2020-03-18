@@ -1,7 +1,7 @@
 <main role="main" class="container main">
     <div class="row">
         <div class="col-md-12">
-            <article class="media content-section">
+            <article class="media content-section" id="likes-app">
                 <img class="rounded-circle article-img" src="<%=post.author.profile.avatar %>" alt="">
                 <div class="media-body">
                     <div class="article-metadata">
@@ -11,10 +11,8 @@
                     <h2 class="article-title"><%= post.title %></h2>
                     <p class="article-content"><%= post.content %></p>
                     <div>
-                        <a class="likes-button" href="/api/post/24/like"
-                            title="Connectez ou inscrivez-vous pour liker.">
-                            <span class="likes-number-container"><%= post.likes.length %></span>
-                            <span class="fa fa-heart"></span></a>
+                        <likes-button :likes="<%= post.likes.length %>" :id="<%= post.id %>" :liked="<%= post.liked %>">
+                        </likes-button>
                     </div>
                 </div>
             </article>
@@ -64,3 +62,8 @@
 
 
 </main>
+<%- exposeLocalsToBrowser() %>
+<% block('localScripts', `
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="/js/pages/post/likes-app.js"></script>
+`) %>

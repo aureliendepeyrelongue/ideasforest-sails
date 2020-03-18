@@ -1,5 +1,5 @@
 <div role="main" class="container main">
-    <div class="row">
+    <div class="row" id="likes-app">
         <% for(var i=0 ; i < posts.length; i++) { %>
         <div class="col-md-3">
             <div class="idea-card">
@@ -13,15 +13,16 @@
                     </p>
                 </div>
                 <div class="idea-card-bottom">
-
-                    <a class="likes-button" href="/api/post/<%=posts[i].id%>/like"
-                        title="Connectez ou inscrivez-vous pour liker.">
-                        <span class="likes-number-container"><%= posts[i].likes.length %></span>
-                        <span class="fa fa-heart"></span></a>
-
+                    <likes-button :likes="<%= posts[i].likes.length %>" :id="<%= posts[i].id %>"
+                        :liked="<%= posts[i].liked %>"></likes-button>
                 </div>
             </div>
         </div>
         <% }%>
     </div>
 </div>
+<%- exposeLocalsToBrowser() %>
+<% block('localScripts', `
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="/js/pages/post/likes-app.js"></script>
+`) %>

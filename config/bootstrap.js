@@ -163,6 +163,34 @@ module.exports.bootstrap = async function() {
 
     }).fetch();
 
+    var lastSelectedRoom1 = await LastSelectedRoom.create({
+      user:  users[0].id
+
+    }).fetch();
+
+
+
+    var lastSelectedRoom2 = await LastSelectedRoom.create({
+      user:  users[1].id
+
+    }).fetch();
+    var lastSelectedRoom3 = await LastSelectedRoom.create({
+      user:  users[2].id
+
+    }).fetch();
+    var lastSelectedRoom4 = await LastSelectedRoom.create({
+      user:  users[3].id
+
+    }).fetch();
+    var lastSelectedRoom5 = await LastSelectedRoom.create({
+      user:  users[4].id
+
+    }).fetch();
+    var lastSelectedRoom6 = await LastSelectedRoom.create({
+      user:  users[5].id
+
+    }).fetch();
+
     var post1 = await Post.create({
       author:users[0].id,
       title : 'Titre 1',
@@ -237,17 +265,21 @@ module.exports.bootstrap = async function() {
     }).fetch();
 
     var room1 = await Room.create({
+      createdBy: users[1].id
     }).fetch();
 
     var room2 = await Room.create({
+      createdBy: users[2].id
     }).fetch();
 
     var room3 = await Room.create({
+      createdBy: users[3].id
     }).fetch();
 
     await Room.addToCollection(room1.id, 'users', [users[0].id, users[1].id]);
     await Room.addToCollection(room2.id, 'users', [users[0].id, users[2].id]);
     await Room.addToCollection(room3.id, 'users', [users[0].id, users[3].id]);
+
     var chatMessage1 = await ChatMessage.create({
       author: users[1].id,
       content : 'salut !!',

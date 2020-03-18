@@ -1,4 +1,6 @@
-
+/* eslint-disable linebreak-style */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-undef */
 
 io.socket.get('/api/chat-messages/connect');
 
@@ -54,7 +56,7 @@ Vue.component('writer', {
   template: `
            <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" v-model="message" placeholder="Type a message" />
+                        <input type="text" class="write_msg" v-model="message" placeholder="Écrire un message" />
                         <button class="msg_send_btn" type="button" @click="sendMessage"><i class="fa fa-paper-plane-o"
                                 aria-hidden="true"></i></button>
                     </div>
@@ -92,8 +94,19 @@ var app = new Vue({
           room.incomingUser = inuser;
         }
       });
-      room.lastMessage = room.messages[room.messages.length-1];
+      if(room.messages.length)
+      {
+        room.lastMessage = room.messages[room.messages.length-1];
+      }
+      else
+      {
+        room.lastMessage = {content: ''};
+      }
+      if(user.lastSelectedRoom && user.lastSelectedRoom.room == room.id){
+        this.activeRoom = room;
+      }
     });
+
 
     io.socket.on('message', (chatMessage) => {
       this.rooms.forEach(room =>{
@@ -107,6 +120,7 @@ var app = new Vue({
   methods: {
     setActiveRoom(room){
       this.activeRoom = room;
+      io.socket.put('/api/last-selected-rooms',{roomId:room.id});
     },
     getActiveClass(roomId) {
       if (roomId == this.activeRoom.id)

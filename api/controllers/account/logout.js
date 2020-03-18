@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
 
 
@@ -33,6 +34,13 @@ actually logged in.  (If they weren't, then this action is just a no-op.)`,
 
 
   fn: async function () {
+    var user = await User.findOne({id:this.req.session.userId}).populate('rooms');
+    for (let i = 0; i < user.rooms.length; i++) {
+      var newRoom =  await Room.findOne({id:user.rooms[i].id}).populate('messages');
+      if(!newRoom.messages.length){
+        await Room.destroyOne({id:newRoom.id});
+      }
+    }
 
     // Clear the `userId` property from this session.
     delete this.req.session.userId;

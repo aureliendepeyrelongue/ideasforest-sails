@@ -23,6 +23,14 @@ module.exports.routes = {
   'GET /api/chat-messages/connect' : 'ChatMessageController.getChatConnect',
   'POST /api/chat-messages' : 'ChatMessageController.postChatMessage',
 
+  'POST /api/post/likes' : 'LikeController.postLike',
+
+  'GET /api/post/:postId/likes' : 'LikeController.getLikes',
+
+  'POST /rooms/:userId' : 'RoomController.postRoom',
+
+  'PUT /api/last-selected-rooms' : 'LastSelectedRoomController.putLastSelectedRoom',
+
   'GET /':                   { action: 'view-homepage-or-redirect' },
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
 

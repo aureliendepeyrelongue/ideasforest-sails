@@ -11,8 +11,10 @@ module.exports = {
   getView(req,res){
     return res.view('pages/chat/chat');
   },
+
   async getChatMessages(req,res){
-    let user = await User.findOne({id:req.session.userId}).populate('rooms');
+    let user = await User.findOne({id:req.session.userId}).populate('rooms').populate('lastSelectedRoom');
+    user.lastSelectedRoom = user.lastSelectedRoom[0];
     for (let i = 0; i < user.rooms.length; i++) {
       user.rooms[i] = await Room.findOne({id:user.rooms[i].id}).populate('messages').populate('users');
       for (let j = 0; j < user.rooms[i].messages.length; j++) {
@@ -25,13 +27,11 @@ module.exports = {
     }
     return res.json(user);
   },
+
   async postChatMessage(req,res) {
-    console.log('entrée');
-    // Make sure this is a socket req (not traditional HTTP)
     if (!req.isSocket) {
       return res.badRequest();
     }
-
     try {
       let user = await User.findOne({id:req.session.userId});
       let chatMessage = await ChatMessage.create({content:req.body.message, room : req.body.roomId, author:user.id }).fetch();
@@ -39,24 +39,17 @@ module.exports = {
         throw new Error('Message processing failed!');
       }
       chatMessage.author = user;
-      console.log('channels broadcast');
       sails.sockets.broadcast('chat-room-'+req.body.roomId,chatMessage);
-      console.log('chat-room-'+req.body.roomId);
     } catch(err) {
       return res.serverError(err);
     }
-
     return res.ok();
   },
 
   async getChatConnect(req,res){
     let user = await User.findOne({id:req.session.userId}).populate('rooms');
-    console.log('channels connect');
     user.rooms.forEach(room => {
       sails.sockets.join(req,'chat-room-'+room.id);
-
-      console.log('chat-room-'+room.id);
-
     });
     return res.ok();
   }

@@ -145,17 +145,24 @@
 
   <% /* Auto-injected «script» tags: */ %>
 
-  <script src="/dependencies/sails.io.js"
-    headers='{ "x-csrf-token": "<%= typeof _csrf !== 'undefined' ? _csrf : '' %>" }'></script>
-  <script src="/dependencies/lodash.js"></script>
   <script src="/dependencies/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
   <script src="/dependencies/vue.js"></script>
   <script src="/dependencies/vue-router.js"></script>
-  <script src="/dependencies/bootstrap-4/bootstrap-4.bundle.js"></script>
+  <script src="/dependencies/lodash.js"></script>
   <script src="/dependencies/cloud.js"></script>
+  <script src="/js/cloud.setup.js"></script>
+
+  <script src="/dependencies/sails.io.js"
+    headers='{ "x-csrf-token": "<%= typeof _csrf !== 'undefined' ? _csrf : '' %>" }'>
+    </script>
+
+
   <script src="/dependencies/moment.js"></script>
   <script src="/dependencies/parasails.js"></script>
-  <script src="/js/cloud.setup.js"></script>
+
   <script src="/js/components/ajax-button.component.js"></script>
   <script src="/js/components/ajax-form.component.js"></script>
   <script src="/js/components/js-timestamp.component.js"></script>

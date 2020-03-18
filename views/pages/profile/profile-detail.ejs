@@ -14,9 +14,18 @@
                         <a href="/user/posts/1" class="btn btn-outline-info">
                             Découvrir ses idées !
                         </a>
-                        <a href="/chatmessage/new" class="btn btn-outline-info">
-                            Envoyer un message
-                        </a>
+                        <% if(me) { %>
+                        <form action="/rooms/<%= user.id %>" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                            <button type="submit" class="btn btn-outline-info">
+                                Envoyer un message
+                            </button>
+                        </form>
+                        <% } else {  %>
+                        <div class="alert alert-primary" role="alert">
+                            Connectez-vous pour envoyer un message à <%= user.fullName %>.
+                        </div>
+                        <% }  %>
                     </div>
                 </div>
             </div>

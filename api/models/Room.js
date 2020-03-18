@@ -8,8 +8,10 @@
 module.exports = {
 
   attributes: {
+    createdBy: { model: 'user'},
     users : {collection : 'user', via : 'rooms'},
-    messages : {collection: 'chatMessage', via : 'room'}
+    messages : {collection: 'chatMessage', via : 'room'},
+    lastSelectedRoom : {collection: 'lastSelectedRoom', via : 'room'}
   },
 
 };
