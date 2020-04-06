@@ -14,6 +14,7 @@ module.exports = {
       const el = posts[i];
       el.author = await User.findOne({id: el.author}).populate('profile');
       el.author.profile = el.author.profile[0];
+      el.createdAt = sails.helpers.dateHelper(el.createdAt);
       var liked = false;
       if(req.me && el.likes){
         for (let k = 0; k < el.likes.length && !liked; k++) {
@@ -33,6 +34,7 @@ module.exports = {
     var post = await Post.findOne({id}).populate('likes').populate('comments');
     post.author = await User.findOne({id: post.author}).populate('profile');
     post.author.profile = post.author.profile[0];
+    post.createdAt = sails.helpers.dateHelper(post.createdAt);
 
     for (let i = 0; i < post.comments.length; i++) {
       var el = post.comments[i];
@@ -49,6 +51,51 @@ module.exports = {
     }
     post.liked = liked;
     return res.view('pages/post/post-detail', {post});
+  },
+
+  async getPostForm(req,res){
+    return res.view('pages/post/post-create');
+  },
+
+  async postPost(req,res){
+    var errors = {'title' : false, 'content' : false};
+    try{
+      Post.validate('title', req.body.title);
+    }
+    catch(err){
+      switch (err.code) {
+        case 'E_VIOLATES_RULES':
+          errors.title = true;
+          break;
+        case 'E_REQUIRED':
+          errors.title = true;
+          break;
+        default:
+          console.log(err.code);
+          throw err;
+      }
+    }
+    try{
+      Post.validate('content', req.body.content);
+    }
+    catch(err){
+      switch (err.code) {
+        case 'E_VIOLATES_RULES':
+          errors.content = true;
+          break;
+        case 'E_REQUIRED':
+          errors.content = true;
+          break;
+        default:
+          throw err;
+      }
+    }
+    if(errors['title'] || errors['content']){
+      return res.view('pages/post/post-create', {errors, 'values' : {title: req.body.title, 'content': req.body.content}});
+    }
+
+    await Post.create({title: req.body.title, content : req.body.content, author: req.session.userId});
+    return res.view('pages/post/post-create', {message:true});
   }
 
 };

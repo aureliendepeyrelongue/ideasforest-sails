@@ -38,6 +38,7 @@ html, body {
   position: absolute;
   left: 0px;
   bottom: 0px;
+  background-color:white;
   .xs-only {
     display: none;
   }
@@ -89,8 +90,10 @@ a {
   color: #222;
 }
 body {
-  background-color: rgb(247, 247, 247);
+  background-color: #f5f5f5;
 }
+
+
 .main {
   margin-top: 25px;
 }
@@ -113,11 +116,11 @@ article {
   margin-right: 10px;
 }
 .idea-card {
+  border-radius :5px;
   background-color: white;
-  min-height: 200px;
+  min-height: 255px;
   margin-bottom: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding:10px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -127,13 +130,13 @@ article {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .idea-card .idea-card-head {
-  padding: 5px;
+  padding-bottom:5px;
   display: flex;
   border-bottom: 1px solid rgb(219, 219, 219);
-  flex-grow: 2;
+ 
 }
 .idea-card .idea-card-head img {
-  width: 45px;
+  width: 35px;
   border-radius: 100%;
 }
 .idea-card .idea-card-head a {
@@ -148,31 +151,37 @@ article {
   display: flex;
   padding: 20px;
   padding-left:10px;
-  flex-grow: 4;
+  flex-grow: 5;
 }
 
 .idea-card .idea-card-body a{
  border-bottom:none;
+ font-size:1.1rem;
  color:#333;
 }
 
 .idea-card .idea-card-bottom{
   display:flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  height:35px;
+  
  
-  padding-bottom:10px;
-  flex-grow: 1;
+  
+}
+.idea-card .idea-card-bottom small{
+align-self: flex-end;
 }
 .likes-button{
   cursor:pointer;
   background-color :white;
   border:1px solid #ddd;
   display:inline;
-  padding:0;
-  padding:2px;
+
+ 
   padding-left:8px;
   padding-right:8px;
   border-radius : 6px;
+  padding-bottom:2px;
 }
 .likes-button.liked {
   font-weight: bold;

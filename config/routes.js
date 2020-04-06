@@ -15,13 +15,19 @@ module.exports.routes = {
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
   'GET /ideas': 'PostController.getPostList',
   'GET /ideas/:id' : 'PostController.getPostDetail',
+  'GET /ideas/new' : 'PostController.getPostForm',
+  'POST /ideas' : 'PostController.postPost',
 
   'GET /profile/:id' : 'ProfileController.getProfileDetail',
 
   'GET /messages' : 'ChatMessageController.getView',
   'GET /api/chat-messages' : 'ChatMessageController.getChatMessages',
-  'GET /api/chat-messages/connect' : 'ChatMessageController.getChatConnect',
   'POST /api/chat-messages' : 'ChatMessageController.postChatMessage',
+
+  'GET /api/rooms/chat-messages/connection' : 'RoomController.getRoomsChatMessagesConnection',
+  'GET /api/rooms/new/connection' : 'RoomController.getNewRoomConnection',
+  'POST /api/rooms/new/chat-messages/connection' : 'RoomController.postNewRoomChatMessagesConnection',
+  'POST /api/post/comments' : 'PostCommentController.postComment',
 
   'POST /api/post/likes' : 'LikeController.postLike',
 

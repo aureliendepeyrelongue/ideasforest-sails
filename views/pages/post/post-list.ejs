@@ -5,14 +5,15 @@
             <div class="idea-card">
                 <div class="idea-card-head">
                     <img class="rounded-circle article-img" src="<%=posts[i].author.profile.avatar%>" alt="">
-                    <a class="mr-2" href="/profile/<%=posts[i].author.id%>/"><%= posts[i].author.fullName %></a>
+                    <a class="mr-2" href="/profile/<%=posts[i].author.id%>"><%= posts[i].author.fullName %></a>
                 </div>
                 <div class="idea-card-body">
                     <p class="card-text"><a class="article-title"
-                            href="/ideas/<%=posts[i].id%>/"><%= posts[i].title %></a>
+                            href="/ideas/<%=posts[i].id%>"><%= posts[i].title %></a>
                     </p>
                 </div>
                 <div class="idea-card-bottom">
+                    <small class="text-muted"><%= posts[i].createdAt %></small>
                     <likes-button :likes="<%= posts[i].likes.length %>" :id="<%= posts[i].id %>"
                         :liked="<%= posts[i].liked %>"></likes-button>
                 </div>

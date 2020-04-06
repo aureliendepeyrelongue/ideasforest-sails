@@ -1,14 +1,8 @@
 <div id="homepage" :class="[heroHeightSet ? '' : 'uninitialized']" v-cloak>
-  <div class="hero d-flex flex-column justify-content-center" full-page-hero>
+  <div class="hero d-flex flex-column justify-content-center" id="intro-image-container" full-page-hero>
     <div class="container text-center">
-      <div class="hero-image">
-        <img class="sky" alt="The sky above the ocean" src="/images/hero-sky.png" />
-        <img class="cloud cloud-1" alt="A grayish-blue cloud" src="/images/hero-cloud.png" />
-        <img class="cloud cloud-2" alt="Another grayish-blue cloud" src="/images/hero-cloud.png" />
-        <img class="ship"
-          alt="A ship hovering a few feet over the surface of the water, bearing a flagpole with the Sails.js logo"
-          src="/images/hero-ship.png" />
-        <img class="water" alt="The shadow of the floating ship on the water" src="/images/hero-water.png" />
+      <div id="intro-image">
+
       </div>
       <h1 class="display-4">Partagez et découvrez des <strong>milliers d'idées de startups</strong>.</h1>
       <div>
@@ -139,3 +133,7 @@ stripeSecret: 'sk_test_Zzd814nldl91104qor5911gjald'</code></pre>
   </div>
 </div>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
+
+<% block('localScripts', `
+<script src="/js/pages/homepage.js"></script>
+`) %>

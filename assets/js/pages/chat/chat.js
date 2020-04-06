@@ -2,22 +2,42 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 
-io.socket.get('/api/chat-messages/connect');
+
 
 Vue.component('last-message', {
 
   props: ['room'],
+
+  data() {
+    return {
+      room_ : this.room
+    };
+
+  },
+
   template: `<div class="chat_list">
                         <div class="chat_people">
                             <div class="chat_img"> <img :src="room.incomingUser.profile.avatar"
                                     alt="sunil"> </div>
                             <div class="chat_ib">
-                                <h5>{{room.incomingUser.fullName}} <span class="chat_date">Dec 25</span></h5>
-                                <p>{{room.lastMessage.content}}</p>
+                                <h5>{{room_.incomingUser.fullName}} <span class="chat_date">{{computedLastMessage.createdAt}}</span></h5>
+                                <p>{{computedLastMessage.content}}</p>
                             </div>
                         </div>
                     </div>
-                    `
+                    `,
+  computed: {
+    computedLastMessage(){
+      if(this.room_.messages.length)
+      {
+        return this.room_.messages[this.room_.messages.length-1];
+      }
+      else
+      {
+        return {content : '', createdAt :''};
+      }
+    }
+  }
 });
 
 Vue.component('message', {
@@ -31,22 +51,23 @@ Vue.component('message', {
                         <div class="received_msg">
                             <div class="received_withd_msg">
                                 <p>{{message.content}}</p>
-                                <span class="time_date"> 11:01 AM | Today</span>
+                                <span class="time_date"> {{message.createdAt}} </span>
                             </div>
                         </div>
                     </div>
                     <div v-else class="outgoing_msg">
                         <div class="sent_msg">
                             <p>{{message.content}}</p>
-                            <span class="time_date"> 11:01 AM | Today</span>
+                            <span class="time_date"> {{message.createdAt}}</span>
                         </div>
                     </div>
                     </div>
-                    `
+                    `,
+
+
 });
 
 Vue.component('writer', {
-
   data(){
     return {
       message : ''
@@ -56,7 +77,7 @@ Vue.component('writer', {
   template: `
            <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" v-model="message" placeholder="Écrire un message" />
+                        <input type="text" class="write_msg" v-on:keyup.enter="sendMessage" v-model="message" placeholder="Écrire un message" />
                         <button class="msg_send_btn" type="button" @click="sendMessage"><i class="fa fa-paper-plane-o"
                                 aria-hidden="true"></i></button>
                     </div>
@@ -67,60 +88,64 @@ Vue.component('writer', {
     sendMessage(){
       if(this.message != ''){
         this.$emit('sendmessage', this.message);
+        this.message = '';
       }
     }
-
   }
 });
 
 var app = new Vue({
   el: '#chat-app',
   data: {
-    rooms : [],
+    user : { rooms : []},
     activeRoom: {
       room: {},
       messages: [],
-      incomingUser: {},
-      lastMessage: {}
+      incomingUser: {}
     },
   },
   async mounted() {
+    io.socket.get('/api/rooms/chat-messages/connection');
+    io.socket.get('/api/rooms/new/connection');
     var res = await axios.get('/api/chat-messages');
-    var user = res.data;
-    this.rooms = user.rooms;
-    this.rooms.forEach(room => {
-      room.users.forEach(inuser => {
-        if(inuser.id !== user.id){
-          room.incomingUser = inuser;
-        }
-      });
-      if(room.messages.length)
-      {
-        room.lastMessage = room.messages[room.messages.length-1];
-      }
-      else
-      {
-        room.lastMessage = {content: ''};
-      }
-      if(user.lastSelectedRoom && user.lastSelectedRoom.room == room.id){
-        this.activeRoom = room;
-      }
+    this.user = res.data;
+    this.user.rooms = this.user.rooms.reverse();
+    this.user.rooms.forEach(room => {
+      this.prepareRoom(room);
     });
+    this.scrollMessage();
 
-
-    io.socket.on('message', (chatMessage) => {
-      this.rooms.forEach(room =>{
+    io.socket.on('chat-message', (chatMessage) => {
+      this.user.rooms.forEach(room =>{
         if(room.id == chatMessage.room){
           room.messages.push(chatMessage);
         }
       });
+      this.scrollMessage();
+    });
+
+    io.socket.on('new-room', (newRoom) =>{
+      this.prepareRoom(newRoom);
+      this.user.rooms.unshift(newRoom);
+      io.socket.post('/api/rooms/new/chat-messages/connection',{roomId:newRoom.id});
     });
 
   },
   methods: {
+    prepareRoom(room){
+      room.users.forEach(inuser => {
+        if(inuser.id !== this.user.id){
+          room.incomingUser = inuser;
+        }
+      });
+      if(this.user.lastSelectedRoom && this.user.lastSelectedRoom.room == room.id){
+        this.activeRoom = room;
+      }
+    },
     setActiveRoom(room){
       this.activeRoom = room;
       io.socket.put('/api/last-selected-rooms',{roomId:room.id});
+      this.scrollMessage();
     },
     getActiveClass(roomId) {
       if (roomId == this.activeRoom.id)
@@ -137,6 +162,12 @@ var app = new Vue({
         } else {
 
         }
+      });
+
+    },
+    scrollMessage(){
+      this.$nextTick(function () {
+        this.$refs.messageContainerScroll.scrollTop = this.$refs.messageContainerScroll.scrollHeight;
       });
     }
   }

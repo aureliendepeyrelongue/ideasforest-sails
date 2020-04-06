@@ -169,7 +169,7 @@ without necessarily having a billing card.`
     profile : {collection : 'profile',via : 'author'},
     lastSelectedRoom : {collection : 'lastSelectedRoom',via : 'user'},
     teams : { collection : 'team', via : 'teammates'},
-    comments : { collection : 'comment', via: 'author'},
+    postComments : { collection : 'postComment', via: 'author'},
     likes : {collection : 'like', via: 'author'},
     chatMessages : {collection : 'chatMessage', via:'author'},
     rooms: {collection:'room', via: 'users'},

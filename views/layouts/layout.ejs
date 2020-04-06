@@ -55,9 +55,9 @@
         <!-- LOGGED-IN NAVIGATION -->
         <a class="nav-item nav-link ml-2 ml-md-0 mr-2" href="/ideas">Parcourir les idées</a>
         <% if(me) { %>
+        <a class="nav-item nav-link ml-2 ml-md-0 mr-2" href="/ideas/new">Publier une idée</a>
         <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/messages">Messages</a>
         <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/team">Équipes</a>
-
         <!-- Only in desktop nav -->
         <div class="nav-item dropdown d-none d-sm-block">
           <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true"
@@ -149,7 +149,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-  <script src="/dependencies/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="/dependencies/vue-router.js"></script>
   <script src="/dependencies/lodash.js"></script>
   <script src="/dependencies/cloud.js"></script>
@@ -180,7 +180,6 @@
   <script src="/js/pages/entrance/new-password.page.js"></script>
   <script src="/js/pages/entrance/signup.page.js"></script>
   <script src="/js/pages/faq.page.js"></script>
-  <script src="/js/pages/homepage.page.js"></script>
   <script src="/js/pages/legal/privacy.page.js"></script>
   <script src="/js/pages/legal/terms.page.js"></script>
 

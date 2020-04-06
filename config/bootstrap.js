@@ -194,37 +194,37 @@ module.exports.bootstrap = async function() {
     var post1 = await Post.create({
       author:users[0].id,
       title : 'Titre 1',
-      content: 'Contenu 1'
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
     }).fetch();
 
     var post2 = await Post.create({
       author:users[1].id,
       title : 'Titre 2',
-      content: 'Contenu 2'
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
     }).fetch();
 
     var post3 = await Post.create({
       author:users[2].id,
       title : 'Titre 3',
-      content: 'Contenu 3'
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
     }).fetch();
 
     var post4 = await Post.create({
       author:users[3].id,
       title : 'Titre 4',
-      content: 'Contenu 4'
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
     }).fetch();
 
     var post5 = await Post.create({
       author:users[4].id,
       title : 'Titre 5',
-      content: 'Contenu 5'
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
     }).fetch();
 
     var post6 = await Post.create({
       author:users[5].id,
       title : 'Titre 6',
-      content: 'Contenu 6'
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
     }).fetch();
 
 
@@ -243,21 +243,21 @@ module.exports.bootstrap = async function() {
       post : post1.id
     }).fetch();
 
-    var comment1 = await Comment.create({
+    var comment1 = await PostComment.create({
       author : users[1].id,
       post : post1.id,
       content: 'Super idée !!'
 
     }).fetch();
 
-    var comment2 = await Comment.create({
+    var comment2 = await PostComment.create({
       author : users[2].id,
       post : post1.id,
       content: 'Pas très crédible'
 
     }).fetch();
 
-    var comment2 = await Comment.create({
+    var comment2 = await PostComment.create({
       author : users[3].id,
       post : post1.id,
       content: 'Parfait ça te dit qu\'on fasse équipe ?'

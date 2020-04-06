@@ -6,16 +6,15 @@
                     <div class="recent_heading">
                         <h4>Vos messages</h4>
                     </div>
-
                 </div>
                 <div class="inbox_chat">
-                    <last-message v-for="item in rooms" v-bind:room="item" v-on:click.native="setActiveRoom(item)"
+                    <last-message v-for="item in user.rooms" v-bind:room="item" v-on:click.native="setActiveRoom(item)"
                         :class="getActiveClass(item.id)">
                     </last-message>
                 </div>
             </div>
             <div class="mesgs">
-                <div class="msg_history">
+                <div class="msg_history" ref="messageContainerScroll">
                     <message v-for="message in activeRoom.messages" :message="message"
                         :inuser="activeRoom.incomingUser"></message>
                 </div>

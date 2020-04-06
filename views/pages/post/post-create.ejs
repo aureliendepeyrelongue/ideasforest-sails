@@ -1,0 +1,54 @@
+<main role="main" class="container main">
+
+    <% if(typeof message !== 'undefined' && message) { %>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="alert alert-success" role="alert">
+                Votre idée a bien été créée, elle est en attente de validation par les modérateurs.
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3">
+            <div class="content-section">
+                <form method="POST" action="/ideas">
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">
+                            Partagez votre idée avec le monde entier
+                        </legend>
+                        <div id="div_id_title" class="form-group"> <label for="id_title" class=" requiredField">
+                                Titre<span class="asteriskField">*</span> </label>
+                            <input type="text" name="title" required minLength="1" maxlength="100"
+                                value="<%= typeof values !== 'undefined' ? values['title'] : '' %>"
+                                class="textinput textInput form-control <%= typeof errors !== 'undefined' && errors['title'] ? 'is-invalid' : '' %>"
+                                id="id_title">
+                            <div class="invalid-feedback">S'il vous plaît entrez un titre compris entre 1 et 100
+                                caractères.
+                            </div>
+                        </div>
+                        <div id="div_id_content" class="form-group"> <label for="id_content" class=" requiredField">
+                                Description<span class="asteriskField">*</span> </label>
+                            <textarea name="content" cols="40" rows="10" required minLength="50"
+                                class="textarea form-control  <%= typeof errors !== 'undefined' && errors['content'] ? 'is-invalid' : '' %>"
+                                id="id_content"><%= typeof values !== 'undefined' ? values['content'] : '' %></textarea>
+                            <div class="invalid-feedback">S'il vous plaît entrez un contenu d'au minimum 50 caractères.
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">
+                            Publier
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+</main>
